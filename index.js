@@ -13,7 +13,6 @@ var request = require('request');
 
 var sdk = "git@github.com:LiskHQ/lisk-dapps-sdk.git";
 
-
 program.version('1.1.1');
 
 program
@@ -134,7 +133,6 @@ program
 							], function (result) {
 								console.log("Generating unique genesis block...");
 
-								// create dapp and save to genesis block
 								var block, dapp, delegates;
 
 								if (newGenesisBlock) {
@@ -203,11 +201,9 @@ program
 										}
 									], function (result) {
 										console.log("Creating DApp genesis block");
-
 										var dappBlock = dappHelper.new(account, block, result.publicKeys.split(','));
 
 										console.log("Fetching Lisk Dapps SDK");
-
 										var dappsPath = path.join('.', 'dapps');
 										fs.exists(dappsPath, function (exists) {
 											if (!exists) {
@@ -243,7 +239,6 @@ program
 															fs.unlinkSync(bcFile);
 														}
 
-														// load npm config
 														var packageJson = path.join(dappPath, "package.json");
 														var config = null;
 
@@ -394,7 +389,6 @@ program
 									publicKeys = dappGenesis.delegates;
 								}
 
-
 								inquirer.prompt([
 									{
 										type: "input",
@@ -430,7 +424,6 @@ program
 								], function (result) {
 									publicKeys = publicKeys.concat(result.publicKeys.split(','));
 
-									// generate new genesis block
 									console.log("Creating DApp genesis block");
 
 									var bcFile = path.join('.', 'blockchain.db');
@@ -494,7 +487,6 @@ program
 					required: false
 				}
 			], function (result) {
-				// body
 				var body = {
 					secret: result.secret,
 					dappId: result.dappId,
@@ -569,7 +561,6 @@ program
 					secret: result.secret,
 					amount: result.amount
 				};
-
 
 				request({
 					url: "http://localhost:7040/api/dapps/" + result.dappId + "/api/withdrawal",
@@ -676,9 +667,6 @@ program
 							type = filenames.length + 1,
 							filename = result.filename + ".js";
 
-						// проверяем что контракт существуем
-						// удаляем
-						// удаляем из modules.full.json
 						var contractPath = path.join(contractsPath, filename);
 						fs.exists(contractPath, function (exists) {
 							if (exists) {
@@ -688,7 +676,6 @@ program
 									}
 
 									console.log("Contract removed");
-
 									console.log("Updating contracts list");
 
 									fs.readFile(path.join('.', 'modules.full.json'), 'utf8', function (err, text) {
@@ -793,7 +780,6 @@ program
 			console.log("'node crypto -h' to get help");
 		}
 	});
-
 
 if (!process.argv.slice(2).length) {
 	program.outputHelp();
