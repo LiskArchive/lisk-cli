@@ -225,7 +225,7 @@ program
 													return console.log(err.toString());
 												}
 
-												console.log("Connecting local repository with remote repository");
+												console.log("Connecting local repository with origin");
 												gift.init(dappPath, function (err, repo) {
 													if (err) {
 														return console.log(err.toString());
@@ -297,7 +297,7 @@ program
 																		{
 																			type: "confirm",
 																			name: "confirmed",
-																			message: "Add dapp to autolaunch"
+																			message: "Add dapp to autolaunch?"
 																		}
 																	], function (result) {
 																		if (result.confirmed) {
