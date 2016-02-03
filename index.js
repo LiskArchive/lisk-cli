@@ -62,12 +62,12 @@ program
 							{
 								type: "confirm",
 								name: "confirmed",
-								message: "Update existing genesis block? (or create a new one)",
-								default: false
+								message: "Overwrite the existing genesis block?",
+								default: true
 							}
 						], function (result) {
 							var genesisBlock = null;
-							var newGenesisBlock = !result.confirmed;
+							var newGenesisBlock = result.confirmed;
 
 							if (!newGenesisBlock) {
 								try {
