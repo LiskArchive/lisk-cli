@@ -66,7 +66,7 @@ lisk-cli -h
 
 - Boris Povod <boris@crypti.me>
 - Pavel Nekrasov <landgraf.paul@gmail.com>
-- Olivier Beddows <olivier@lisk.io>
+- Oliver Beddows <oliver@lisk.io>
 
 ## License
 
