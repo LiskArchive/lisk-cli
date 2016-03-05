@@ -502,7 +502,7 @@ program
 						type: "input",
 						name: "host",
 						message: "Host and port",
-						default: "localhost:7040",
+						default: "localhost:7000",
 						required: true
 					}
 				], function (result) {
@@ -563,7 +563,7 @@ program
 				};
 
 				request({
-					url: "http://localhost:7040/api/dapps/" + result.dappId + "/api/withdrawal",
+					url: "http://localhost:7000/api/dapps/" + result.dappId + "/api/withdrawal",
 					method: "post",
 					json: true,
 					body: body
