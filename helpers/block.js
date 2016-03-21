@@ -141,7 +141,7 @@ module.exports = {
 
 		//make dapps
 		var dappTransaction = {
-			type: 9,
+			type: 5,
 			amount: 0,
 			fee: 0,
 			timestamp: 0,
@@ -208,7 +208,7 @@ module.exports = {
 		for (var i  in genesisBlock.transactions) {
 			var tx = genesisBlock.transactions[i];
 
-			if (tx.type == 9) {
+			if (tx.type == 5) {
 				if (tx.asset.dapp.name == dapp.name) {
 					throw new Error("DApp with name '" + dapp.name + "' already exists in genesis block");
 				}
@@ -220,7 +220,7 @@ module.exports = {
 		}
 
 		var dappTransaction = {
-			type: 9,
+			type: 5,
 			amount: 0,
 			fee: 0,
 			timestamp: 0,
