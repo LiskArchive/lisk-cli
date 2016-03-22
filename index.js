@@ -124,7 +124,7 @@ program
 										var done = this.async();
 
 										if (!(/^git\@github\.com\:.+\.git$/.test(value))) {
-											done("Invalid github repository link");
+											done("Invalid github repository");
 											return;
 										}
 
