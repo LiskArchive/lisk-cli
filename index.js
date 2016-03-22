@@ -11,7 +11,8 @@ var cryptoLib = require('./lib/crypto.js');
 var npm = require('npm');
 var request = require('request');
 
-var sdk = "git@github.com:LiskHQ/lisk-dapps-sdk.git";
+var sdk = "git@github.com:LiskHQ/lisk-dapps-sdk.git",
+    sdk_link = "https://github.com/LiskHQ/lisk-dapps-sdk/archive/master.zip";
 
 program.version('1.1.1');
 
@@ -141,6 +142,7 @@ program
 											name: result.name,
 											description: result.description,
 											git: result.git,
+											link: sdk_link,
 											type: 0,
 											category: 0
 										}
@@ -156,6 +158,7 @@ program
 												name: result.name,
 												description: result.description,
 												git: result.git,
+												link: sdk_link,
 												type: 0,
 												category: 0
 											}
