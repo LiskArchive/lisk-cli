@@ -124,7 +124,7 @@ program
 										var done = this.async();
 
 										if (!(/^git\@github\.com\:.+\.git$/.test(value))) {
-											done("Incorrect github repository link");
+											done("Invalid github repository link");
 											return;
 										}
 
@@ -190,11 +190,11 @@ program
 													try {
 														var b = new Buffer(publicKeys[i], 'hex');
 														if (b.length != 32) {
-															done('Incorrect public key: ' + publicKeys[i]);
+															done('Invalid public key: ' + publicKeys[i]);
 															return;
 														}
 													} catch (e) {
-														done('Incorrect hex for public key: ' + publicKeys[i]);
+														done('Invalid hex for public key: ' + publicKeys[i]);
 														return;
 													}
 												}
@@ -248,7 +248,7 @@ program
 														try {
 															config = JSON.parse(fs.readFileSync(packageJson));
 														} catch (e) {
-															return setImmediate(cb, "Incorrect package.json file for " + dApp.transactionId + " DApp");
+															return setImmediate(cb, "Invalid package.json file for " + dApp.transactionId + " DApp");
 														}
 
 														npm.load(config, function (err) {
@@ -412,11 +412,11 @@ program
 												try {
 													var b = new Buffer(publicKeys[i], 'hex');
 													if (b.length != 32) {
-														done('Incorrect public key: ' + publicKeys[i]);
+														done('Invalid public key: ' + publicKeys[i]);
 														return;
 													}
 												} catch (e) {
-													done('Incorrect hex for public key: ' + publicKeys[i]);
+													done('Invalid hex for public key: ' + publicKeys[i]);
 													return;
 												}
 											}
