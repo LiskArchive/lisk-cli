@@ -379,7 +379,7 @@ program
 								publicKeys = [];
 
 							var dappPath = path.join('.', 'dapps', dappId);
-							var dappGenesis = require(path.join(dappPath, 'genesis.json'));
+							var dappGenesis = JSON.parse(fs.readFileSync(path.join(dappPath, 'genesis.json'), 'utf8'));
 
 							inquirer.prompt([
 								{
@@ -425,8 +425,6 @@ program
 										}
 									}
 								], function (result) {
-									publicKeys = publicKeys.concat(result.publicKeys.split(','));
-
 									console.log("Creating DApp genesis block");
 
 									var bcFile = path.join('.', 'blockchain.db');
@@ -436,7 +434,7 @@ program
 										fs.unlinkSync(bcFile);
 									}
 
-									var dappBlock = dappHelper.new(account, block, result.publicKeys.split(','));
+									var dappBlock = dappHelper.new(account, dappGenesis, result.publicKeys.split(','));
 
 									var dappGenesisBlockJson = JSON.stringify(dappBlock, null, 4);
 
