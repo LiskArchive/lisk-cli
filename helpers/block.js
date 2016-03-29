@@ -216,6 +216,10 @@ module.exports = {
 				if (tx.asset.dapp.git == dapp.git) {
 					throw new Error("DApp with git '" + dapp.git + "' already exists in genesis block");
 				}
+
+				if (tx.asset.dapp.link == dapp.link) {
+					throw new Error("DApp with link '" + dapp.link + "' already exists in genesis block");
+				}
 			}
 		}
 
@@ -242,7 +246,6 @@ module.exports = {
 		payloadHash.update(bytes);
 		genesisBlock.payloadHash = payloadHash.digest().toString('utf8');
 
-
 		genesisBlock.transactions.push(dappTransaction);
 		genesisBlock.numberOfTransactions += 1;
 		genesisBlock.generatorPublicKey = sender.keypair.publicKey;
@@ -251,7 +254,6 @@ module.exports = {
 		genesisBlock.blockSignature = cryptoLib.sign(sender.keypair, bytes);
 		bytes = getBytes(genesisBlock);
 		genesisBlock.id = cryptoLib.getId(bytes);
-
 
 		return {
 			block: genesisBlock,
