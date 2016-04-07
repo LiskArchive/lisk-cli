@@ -1,10 +1,15 @@
 var crypto = require('crypto');
 var cryptoLib = require('../lib/crypto.js');
+var Mnemonic = require('bitcore-mnemonic');
 var transactionsLib = require('../lib/transactions.js');
 var accounts = require('./account.js');
 var ByteBuffer = require('bytebuffer');
 
-var sender = accounts.account(cryptoLib.randomString(32));
+var sender = accounts.account(generateSecret());
+
+function generateSecret() {
+  return new Mnemonic(Mnemonic.Words.ENGLISH).toString();
+}
 
 function getBytes(block) {
 	var size = 4 + 4 + 8 + 4 + 4 + 8 + 8 + 4 + 4 + 4 + 32 + 32 + 64;
@@ -84,9 +89,7 @@ module.exports = {
 
 		// make delegates
 		for (var i = 0; i < 101; i++) {
-			var delegateSecret = cryptoLib.randomString(32);
-
-			var delegate = accounts.account(delegateSecret);
+			var delegate = accounts.account(generateSecret());
 			delegates.push(delegate);
 
 			var username = "genesisDelegate" + (i+1);
