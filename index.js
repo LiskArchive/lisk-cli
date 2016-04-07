@@ -14,7 +14,7 @@ var request = require('request');
 var sdk = "git@github.com:LiskHQ/lisk-dapps-sdk.git",
     sdk_link = "https://github.com/LiskHQ/lisk-dapps-sdk/archive/master.zip";
 
-program.version('1.1.1');
+program.version('1.1.3');
 
 program
 	.command("dapps")
