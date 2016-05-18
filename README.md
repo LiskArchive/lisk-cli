@@ -1,6 +1,6 @@
 # Lisk CLI
 
-A command line interface for bootstrapping and managing [Lisk](https://lisk.io/) dapps.
+A command line interface for bootstrapping and managing [Lisk](https://lisk.io/) apps.
 
 ## Installation:
 
@@ -8,9 +8,9 @@ A command line interface for bootstrapping and managing [Lisk](https://lisk.io/)
 npm install -g lisk-cli
 ```
 
-## Dapps
+## Apps
 
-### Add dapp
+### Add app
 
 ```
 lisk-cli dapps -a
