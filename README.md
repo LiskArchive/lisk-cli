@@ -1,6 +1,6 @@
 # Lisk CLI
 
-A command line interface for bootstrapping and managing [Lisk](https://lisk.io/) apps.
+A command line interface for bootstrapping and managing [Lisk](https://lisk.io/) blockchain apps.
 
 ## Installation:
 
