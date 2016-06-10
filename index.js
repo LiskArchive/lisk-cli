@@ -123,9 +123,8 @@ program
 									validate: function (value) {
 										var done = this.async();
 
-										if (
-												!(/^git\@github\.com\:.+\/.+\.git$/i.test(value)) &&
-												!(/^https:\/\/github\.com\/.+\/.+\.git$/i.test(value)) ) {
+										if (!(/^git\@github\.com\:.+\/.+\.git$/i.test(value))
+										&& !(/^https:\/\/github\.com\/.+\/.+\.git$/i.test(value))) {
 											done("Invalid github repository");
 											return;
 										}
