@@ -1,20 +1,20 @@
 var inquirer = require("inquirer");
-var program = require('commander');
-var accountHelper = require('./helpers/account.js');
-var blockHelper = require('./helpers/block.js');
-var dappHelper = require('./helpers/dapp.js');
-var gift = require('gift');
-var fs = require('fs');
-var path = require('path');
-var rmdir = require('rmdir');
-var cryptoLib = require('./lib/crypto.js');
-var npm = require('npm');
-var request = require('request');
+var program = require("commander");
+var accountHelper = require("./helpers/account.js");
+var blockHelper = require("./helpers/block.js");
+var dappHelper = require("./helpers/dapp.js");
+var gift = require("gift");
+var fs = require("fs");
+var path = require("path");
+var rmdir = require("rmdir");
+var cryptoLib = require("./lib/crypto.js");
+var npm = require("npm");
+var request = require("request");
 
 var sdk = "git@github.com:LiskHQ/lisk-dapps-sdk.git",
     sdk_link = "https://github.com/LiskHQ/lisk-dapps-sdk/archive/master.zip";
 
-program.version('1.1.3');
+program.version("1.1.3");
 
 program
 	.command("dapps")
@@ -71,9 +71,9 @@ program
 
 							if (!newGenesisBlock) {
 								try {
-									var genesisBlock = JSON.parse(fs.readFileSync(path.join('.', 'genesisBlock.json'), 'utf8'));
+									var genesisBlock = JSON.parse(fs.readFileSync(path.join(".", "genesisBlock.json"), "utf8"));
 								} catch (e) {
-									console.log("Can't read genesisBlock.js: ", e.toString());
+									console.log("Failed to read genesisBlock.js: ", e.toString());
 									return;
 								}
 							}
@@ -180,22 +180,22 @@ program
 											validate: function (value) {
 												var done = this.async();
 
-												var publicKeys = value.split(',');
+												var publicKeys = value.split(",");
 
 												if (publicKeys.length == 0) {
-													done('DApp requires at least 1 public key');
+													done("DApp requires at least 1 public key");
 													return;
 												}
 
 												for (var i in publicKeys) {
 													try {
-														var b = new Buffer(publicKeys[i], 'hex');
+														var b = new Buffer(publicKeys[i], "hex");
 														if (b.length != 32) {
-															done('Invalid public key: ' + publicKeys[i]);
+															done("Invalid public key: " + publicKeys[i]);
 															return;
 														}
 													} catch (e) {
-														done('Invalid hex for public key: ' + publicKeys[i]);
+														done("Invalid hex for public key: " + publicKeys[i]);
 														return;
 													}
 												}
@@ -205,10 +205,10 @@ program
 										}
 									], function (result) {
 										console.log("Creating DApp genesis block");
-										var dappBlock = dappHelper.new(account, block, result.publicKeys.split(','));
+										var dappBlock = dappHelper.new(account, block, result.publicKeys.split(","));
 
 										console.log("Fetching Lisk Dapps SDK");
-										var dappsPath = path.join('.', 'dapps');
+										var dappsPath = path.join(".", "dapps");
 										fs.exists(dappsPath, function (exists) {
 											if (!exists) {
 												fs.mkdirSync(dappsPath);
@@ -231,7 +231,7 @@ program
 														return console.log(err.toString());
 													}
 
-													repo.remote_add('origin', dapp.asset.dapp.git, function (err, repo) {
+													repo.remote_add("origin", dapp.asset.dapp.git, function (err, repo) {
 														if (err) {
 															return console.log(err.toString());
 														}
@@ -257,7 +257,7 @@ program
 																	var genesisBlockJson = JSON.stringify(block, null, 4);
 
 																	try {
-																		fs.writeFileSync(path.join('.', 'genesisBlock.json'), genesisBlockJson, "utf8");
+																		fs.writeFileSync(path.join(".", "genesisBlock.json"), genesisBlockJson, "utf8");
 																	} catch (e) {
 																		return console.log(err);
 																	}
@@ -265,7 +265,7 @@ program
 																	var dappGenesisBlockJson = JSON.stringify(dappBlock, null, 4);
 
 																	try {
-																		fs.writeFileSync(path.join(dappPath, 'genesis.json'), dappGenesisBlockJson, "utf8");
+																		fs.writeFileSync(path.join(dappPath, "genesis.json"), dappGenesisBlockJson, "utf8");
 																	} catch (e) {
 																		return console.log(err);
 																	}
@@ -273,7 +273,7 @@ program
 																	console.log("Updating config");
 
 																	try {
-																		var config = JSON.parse(fs.readFileSync(path.join('.', 'config.json'), 'utf8'));
+																		var config = JSON.parse(fs.readFileSync(path.join(".", "config.json"), "utf8"));
 																	} catch (e) {
 																		return console.log(e);
 																	}
@@ -304,7 +304,7 @@ program
 																			})
 																		}
 
-																		fs.writeFile(path.join('.', 'config.json'), JSON.stringify(config, null, 2), function (err) {
+																		fs.writeFile(path.join(".", "config.json"), JSON.stringify(config, null, 2), function (err) {
 																			if (err) {
 																				console.log(err);
 																			} else {
@@ -372,8 +372,8 @@ program
 							var dappId = result.dappId,
 								publicKeys = [];
 
-							var dappPath = path.join('.', 'dapps', dappId);
-							var dappGenesis = JSON.parse(fs.readFileSync(path.join(dappPath, 'genesis.json'), 'utf8'));
+							var dappPath = path.join(".", "dapps", dappId);
+							var dappGenesis = JSON.parse(fs.readFileSync(path.join(dappPath, "genesis.json"), "utf8"));
 
 							inquirer.prompt([
 								{
@@ -395,22 +395,22 @@ program
 										validate: function (value) {
 											var done = this.async();
 
-											var publicKeys = value.split(',');
+											var publicKeys = value.split(",");
 
 											if (publicKeys.length == 0) {
-												done('DApp requires at least 1 public key');
+												done("DApp requires at least 1 public key");
 												return;
 											}
 
 											for (var i in publicKeys) {
 												try {
-													var b = new Buffer(publicKeys[i], 'hex');
+													var b = new Buffer(publicKeys[i], "hex");
 													if (b.length != 32) {
-														done('Invalid public key: ' + publicKeys[i]);
+														done("Invalid public key: " + publicKeys[i]);
 														return;
 													}
 												} catch (e) {
-													done('Invalid hex for public key: ' + publicKeys[i]);
+													done("Invalid hex for public key: " + publicKeys[i]);
 													return;
 												}
 											}
@@ -421,11 +421,11 @@ program
 								], function (result) {
 									console.log("Creating DApp genesis block");
 
-									var dappBlock = dappHelper.new(account, dappGenesis, result.publicKeys.split(','));
+									var dappBlock = dappHelper.new(account, dappGenesis, result.publicKeys.split(","));
 									var dappGenesisBlockJson = JSON.stringify(dappBlock, null, 4);
 
 									try {
-										fs.writeFileSync(path.join(dappPath, 'genesis.json'), dappGenesisBlockJson, "utf8");
+										fs.writeFileSync(path.join(dappPath, "genesis.json"), dappGenesisBlockJson, "utf8");
 									} catch (e) {
 										return console.log(err);
 									}
@@ -572,12 +572,12 @@ program
 	});
 
 program
-	.command('contract')
-	.description('contract operations')
-	.option('-a, --add', "add new contract")
-	.option('-d, --delete', "delete contract")
+	.command("contract")
+	.description("contract operations")
+	.option("-a, --add", "add new contract")
+	.option("-d, --delete", "delete contract")
 	.action(function (options) {
-		var contractsPath = path.join('.', 'modules', 'contracts');
+		var contractsPath = path.join(".", "modules", "contracts");
 		fs.exists(contractsPath, function (exist) {
 			if (exist) {
 				if (options.add) {
@@ -612,7 +612,7 @@ program
 										console.log("New contract created: " + ("./contracts/" + filename));
 										console.log("Updating contracts list");
 
-										fs.readFile(path.join('.', 'modules.full.json'), 'utf8', function (err, text) {
+										fs.readFile(path.join(".", "modules.full.json"), "utf8", function (err, text) {
 											if (err) {
 												return console.log(err);
 											}
@@ -629,7 +629,7 @@ program
 											modules[contractName] = dappPathConfig;
 											modules = JSON.stringify(modules, false, 4);
 
-											fs.writeFile(path.join('.', 'modules.full.json'), modules, 'utf8', function (err) {
+											fs.writeFile(path.join(".", "modules.full.json"), modules, "utf8", function (err) {
 												if (err) {
 													return console.log(err);
 												}
@@ -665,7 +665,7 @@ program
 									console.log("Contract removed");
 									console.log("Updating contracts list");
 
-									fs.readFile(path.join('.', 'modules.full.json'), 'utf8', function (err, text) {
+									fs.readFile(path.join(".", "modules.full.json"), "utf8", function (err, text) {
 										if (err) {
 											return console.log(err);
 										}
@@ -681,7 +681,7 @@ program
 										delete modules[name];
 										modules = JSON.stringify(modules, false, 4);
 
-										fs.writeFile(path.join('.', 'modules.full.json'), modules, 'utf8', function (err) {
+										fs.writeFile(path.join(".", "modules.full.json"), modules, "utf8", function (err) {
 											if (err) {
 												return console.log(err);
 											}
@@ -699,16 +699,16 @@ program
 
 				}
 			} else {
-				return console.log('./modules/contracts path not found, please change directory to your dapp folder');
+				return console.log("./modules/contracts path not found, please change directory to your dapp folder");
 			}
 		});
 	});
 
 program
-	.command('crypto')
+	.command("crypto")
 	.description("crypto operations")
-	.option('-p, --pubkey', "generate public key from secret")
-	.option('-g, --generate', "generate random accounts")
+	.option("-p, --pubkey", "generate public key from secret")
+	.option("-g, --generate", "generate random accounts")
 	.action(function (options) {
 		if (options.pubkey) {
 			inquirer.prompt([
