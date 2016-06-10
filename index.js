@@ -29,7 +29,7 @@ program
 				{
 					type: "confirm",
 					name: "confirmed",
-					message: "Existing blockchain.db file will be replaced, are you sure?",
+					message: "Existing genesis block will be replaced, are you sure?",
 					default: false
 				}
 			], function (result) {
@@ -236,13 +236,6 @@ program
 															return console.log(err.toString());
 														}
 
-														var bcFile = path.join('.', 'blockchain.db');
-
-														var exists = fs.existsSync(bcFile);
-														if (exists) {
-															fs.unlinkSync(bcFile);
-														}
-
 														var packageJson = path.join(dappPath, "package.json");
 														var config = null;
 
@@ -339,7 +332,7 @@ program
 				{
 					type: "confirm",
 					name: "confirmed",
-					message: "Existing blockchain.db file will be replaced, are you sure?",
+					message: "Existing genesis block will be replaced, are you sure?",
 					default: false
 				}
 			], function (result) {
@@ -428,15 +421,7 @@ program
 								], function (result) {
 									console.log("Creating DApp genesis block");
 
-									var bcFile = path.join('.', 'blockchain.db');
-
-									var exists = fs.existsSync(bcFile);
-									if (exists) {
-										fs.unlinkSync(bcFile);
-									}
-
 									var dappBlock = dappHelper.new(account, dappGenesis, result.publicKeys.split(','));
-
 									var dappGenesisBlockJson = JSON.stringify(dappBlock, null, 4);
 
 									try {
