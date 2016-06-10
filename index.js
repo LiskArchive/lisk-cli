@@ -29,7 +29,7 @@ program
 				{
 					type: "confirm",
 					name: "confirmed",
-					message: "Existing genesis block will be replaced, are you sure?",
+					message: "Existing blockchain will be replaced, are you sure?",
 					default: false
 				}
 			], function (result) {
@@ -332,7 +332,7 @@ program
 				{
 					type: "confirm",
 					name: "confirmed",
-					message: "Existing genesis block will be replaced, are you sure?",
+					message: "Existing blockchain will be replaced, are you sure?",
 					default: false
 				}
 			], function (result) {
