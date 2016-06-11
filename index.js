@@ -137,14 +137,14 @@ program
 								{
 									type: "input",
 									name: "git",
-									message: "Github repository",
+									message: "Enter Github repository (SSH|HTTPS)",
 									required: true,
 									validate: function (value) {
 										var done = this.async();
 
 										if (!(/^git\@github\.com\:.+\/.+\.git$/i.test(value))
 										&& !(/^https:\/\/github\.com\/.+\/.+\.git$/i.test(value))) {
-											done("Invalid github repository");
+											done("Invalid Github repository");
 											return;
 										}
 
