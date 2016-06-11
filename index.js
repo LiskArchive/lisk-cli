@@ -10,9 +10,9 @@ var rmdir = require("rmdir");
 var cryptoLib = require("./lib/crypto.js");
 var npm = require("npm");
 var request = require("request");
+var valid_url = require("valid-url");
 
-var sdk = "git@github.com:LiskHQ/lisk-dapps-sdk.git",
-    sdk_link = "https://github.com/LiskHQ/lisk-dapps-sdk/archive/master.zip";
+var sdk = "git@github.com:LiskHQ/lisk-dapps-sdk.git";
 
 program.version("1.1.3");
 
@@ -117,6 +117,25 @@ program
 								},
 								{
 									type: "input",
+									name: "link",
+									message: "Enter DApp link",
+									required: true,
+									validate: function (value) {
+										var done = this.async();
+
+										if (!valid_url.isUri(value)) {
+											done("Invalid DApp link, must be a valid url");
+											return;
+										} else if (value.indexOf(".zip") != value.length - 4) {
+											done("Invalid DApp link, does not link to zip file");
+											return;
+										}
+
+										return done(true);
+									}
+								},
+								{
+									type: "input",
 									name: "git",
 									message: "Github repository",
 									required: true,
@@ -142,8 +161,8 @@ program
 										{
 											name: result.name,
 											description: result.description,
+											link: result.link,
 											git: result.git,
-											link: sdk_link,
 											type: 0,
 											category: 0
 										}
@@ -158,8 +177,8 @@ program
 											{
 												name: result.name,
 												description: result.description,
+												link: result.link,
 												git: result.git,
-												link: sdk_link,
 												type: 0,
 												category: 0
 											}
