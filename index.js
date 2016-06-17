@@ -71,13 +71,14 @@ program
 
 							if (!newGenesisBlock) {
 								try {
-									var genesisBlock = JSON.parse(fs.readFileSync(path.join(".", "genesisBlock.json"), "utf8"));
+									genesisBlock = JSON.parse(fs.readFileSync(path.join(".", "genesisBlock.json"), "utf8"));
 								} catch (e) {
 									console.log("Failed to read genesisBlock.js: ", e.toString());
 									return;
 								}
 							}
 
+							var linkdefault = "";
 							inquirer.prompt([
 								{
 									type: "input",
@@ -117,18 +118,19 @@ program
 								},
 								{
 									type: "input",
-									name: "link",
-									message: "Enter DApp link",
+									name: "git",
+									message: "Enter Github repository (SSH|HTTPS)",
 									required: true,
 									validate: function (value) {
 										var done = this.async();
 
-										if (!valid_url.isUri(value)) {
-											done("Invalid DApp link, must be a valid url");
+										var match = /^(https\:\/\/github\.com\/|git\@github\.com\:)(.*)\/(.*)\.git$/i.exec(value);
+										if (!match) {
+											done("Invalid Github repository");
 											return;
-										} else if (value.indexOf(".zip") != value.length - 4) {
-											done("Invalid DApp link, does not link to zip file");
-											return;
+										} else {
+											// default zip link from repo
+											linkdefault = "https://github.com/"+match[2]+"/"+match[3]+"/archive/master.zip";
 										}
 
 										return done(true);
@@ -136,15 +138,18 @@ program
 								},
 								{
 									type: "input",
-									name: "git",
-									message: "Enter Github repository (SSH|HTTPS)",
+									name: "link",
+									message: "Enter DApp link",
 									required: true,
+									default: function(){return linkdefault},
 									validate: function (value) {
 										var done = this.async();
 
-										if (!(/^git\@github\.com\:.+\/.+\.git$/i.test(value))
-										&& !(/^https:\/\/github\.com\/.+\/.+\.git$/i.test(value))) {
-											done("Invalid Github repository");
+										if (!valid_url.isUri(value)) {
+											done("Invalid DApp link, must be a valid url");
+											return;
+										} else if (!/^.*\.zip$/i.test(value)){
+											done("Invalid DApp link, does not link to zip file");
 											return;
 										}
 
@@ -255,16 +260,14 @@ program
 															return console.log(err.toString());
 														}
 
-														var packageJson = path.join(dappPath, "package.json");
-														var config = null;
-
+														var packageJson = null;
 														try {
-															config = JSON.parse(fs.readFileSync(packageJson));
+															packageJson = JSON.parse(fs.readFileSync(path.join(dappPath, "package.json")));
 														} catch (e) {
 															return setImmediate(cb, "Invalid package.json file for " + dApp.transactionId + " DApp");
 														}
 
-														npm.load(config, function (err) {
+														npm.load(packageJson, function (err) {
 															npm.root = path.join(dappPath, "node_modules");
 															npm.prefix = dappPath;
 
@@ -290,9 +293,9 @@ program
 																	}
 
 																	console.log("Updating config");
-
+																	var config = null;
 																	try {
-																		var config = JSON.parse(fs.readFileSync(path.join(".", "config.json"), "utf8"));
+																		config = JSON.parse(fs.readFileSync(path.join(".", "config.json"), "utf8"));
 																	} catch (e) {
 																		return console.log(e);
 																	}
