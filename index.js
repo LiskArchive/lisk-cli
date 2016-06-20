@@ -78,7 +78,7 @@ program
 								}
 							}
 
-							var linkdefault = "";
+							var defaultLink = "";
 							inquirer.prompt([
 								{
 									type: "input",
@@ -129,8 +129,8 @@ program
 											done("Invalid Github repository");
 											return;
 										} else {
-											// default zip link from repo
-											linkdefault = "https://github.com/"+match[2]+"/"+match[3]+"/archive/master.zip";
+											// Default zip link from repo
+											defaultLink = "https://github.com/"+match[2]+"/"+match[3]+"/archive/master.zip";
 										}
 
 										return done(true);
@@ -141,7 +141,7 @@ program
 									name: "link",
 									message: "Enter DApp link",
 									required: true,
-									default: function(){return linkdefault},
+									default: function () { return defaultLink },
 									validate: function (value) {
 										var done = this.async();
 
