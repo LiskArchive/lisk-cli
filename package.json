@@ -1,7 +1,7 @@
 {
   "name": "lisk-cli",
   "preferGlobal": true,
-  "version": "1.1.3",
+  "version": "1.1.4",
   "description": "Command line interface for bootstrapping and managing Lisk dapps",
   "main": "index.js",
   "scripts": {
