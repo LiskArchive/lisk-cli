@@ -1,51 +1,75 @@
 {
-  "port": 7000,
-  "address": "0.0.0.0",
-  "serveHttpAPI": true,
-  "serveHttpWallet": true,
-  "version": "0.1.1",
-  "fileLogLevel": "info",
-  "consoleLogLevel": "log",
-  "sharePort": true,
-  "api": {
-    "access": {
-      "whiteList": []
-    }
-  },
-  "peers": {
-    "list": [],
-    "blackList": [],
-    "options": {
-      "timeout": 20000
-    }
-  },
-  "forging": {
-    "secret": [
-    ],
-    "access": {
-      "whiteList": [
-        "127.0.0.1"
-      ]
-    }
-  },
-  "loading": {
-    "verifyOnLoading": true,
-    "loadPerIteration": 5000
-  },
-  "sia": {
-    "peers": []
-  },
-  "ssl": {
-    "enabled": false,
-    "options": {
-      "port": 443,
-      "address": "0.0.0.0",
-      "key": "./ssl/lisk.key",
-      "cert": "./ssl/lisk.crt"
-    }
-  },
-  "dapp": {
-    "autoexec": [
-    ]
-  }
+    "port": 7000,
+    "address": "0.0.0.0",
+    "version": "0.0.0",
+    "fileLogLevel": "info",
+    "logFileName": "logs/lisk.log",
+    "consoleLogLevel": "log",
+    "db": {
+        "host": "localhost",
+        "port": 5432,
+        "database": "lisk_test",
+        "user": null,
+        "password": "password",
+        "poolSize": 20,
+        "poolIdleTimeout": 30000,
+        "reapIntervalMillis": 1000,
+        "logEvents": [
+            "error"
+        ]
+    },
+    "api": {
+        "access": {
+            "whiteList": []
+        },
+        "options": {
+            "limits": {
+                "max": 0,
+                "delayMs": 0,
+                "delayAfter": 0,
+                "windowMs": 60000
+            }
+        }
+    },
+    "peers": {
+        "list": [],
+        "blackList": [],
+        "options": {
+            "limits": {
+                "max": 0,
+                "delayMs": 0,
+                "delayAfter": 0,
+                "windowMs": 60000
+            },
+            "timeout": 4000
+        }
+    },
+    "forging": {
+        "force": true,
+        "secret": [],
+        "access": {
+            "whiteList": [
+                "127.0.0.1"
+            ]
+        }
+    },
+    "loading": {
+        "verifyOnLoading": false,
+        "loadPerIteration": 5000
+    },
+    "ssl": {
+        "enabled": false,
+        "options": {
+            "port": 443,
+            "address": "0.0.0.0",
+            "key": "./ssl/lisk.key",
+            "cert": "./ssl/lisk.crt"
+        }
+    },
+    "dapp": {
+        "masterrequired": true,
+        "masterpassword": "",
+        "autoexec": []
+    },
+    "nethash":""
 }
