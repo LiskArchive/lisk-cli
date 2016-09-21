@@ -14,7 +14,7 @@ var valid_url = require("valid-url");
 
 var sdk = "git@github.com:LiskHQ/lisk-dapps-sdk.git";
 
-program.version("1.1.3");
+program.version("1.1.6");
 
 program
 	.command("dapps")
